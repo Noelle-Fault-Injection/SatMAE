@@ -11,7 +11,7 @@ import torch
 import torch.nn as nn
 
 import timm.models.vision_transformer
-from util.pos_embed import get_2d_sincos_pos_embed
+from model.SatMAE.util.pos_embed import get_2d_sincos_pos_embed
 
 
 class VisionTransformer(timm.models.vision_transformer.VisionTransformer):
