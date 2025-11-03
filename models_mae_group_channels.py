@@ -10,7 +10,7 @@ import torch.nn as nn
 
 from timm.models.vision_transformer import PatchEmbed, Block
 
-from util.pos_embed import get_2d_sincos_pos_embed, get_1d_sincos_pos_embed_from_grid
+from model.SatMAE.util.pos_embed import get_2d_sincos_pos_embed, get_1d_sincos_pos_embed_from_grid
 
 
 class MaskedAutoencoderGroupChannelViT(nn.Module):
@@ -44,7 +44,7 @@ class MaskedAutoencoderGroupChannelViT(nn.Module):
         # self.enc_mask_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
 
         self.blocks = nn.ModuleList([
-            Block(embed_dim, num_heads, mlp_ratio, qkv_bias=True, qk_scale=None, norm_layer=norm_layer)
+            Block(embed_dim, num_heads, mlp_ratio, qkv_bias=True, norm_layer=norm_layer)
             for i in range(depth)])
         self.norm = norm_layer(embed_dim)
         # --------------------------------------------------------------------------
@@ -63,7 +63,7 @@ class MaskedAutoencoderGroupChannelViT(nn.Module):
                                                   requires_grad=False)
 
         self.decoder_blocks = nn.ModuleList([
-            Block(decoder_embed_dim, decoder_num_heads, mlp_ratio, qkv_bias=True, qk_scale=None, norm_layer=norm_layer)
+            Block(decoder_embed_dim, decoder_num_heads, mlp_ratio, qkv_bias=True, norm_layer=norm_layer)
             for i in range(decoder_depth)])
 
         self.decoder_norm = norm_layer(decoder_embed_dim)
